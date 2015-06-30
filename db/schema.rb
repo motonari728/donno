@@ -15,10 +15,10 @@ ActiveRecord::Schema.define(version: 20150629221915) do
 
   create_table "microposts", force: :cascade do |t|
     t.text     "content"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.string   "uuid",       limit: 36, null: false
-    t.integer  "room_id",               null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "uuid",       null: false
+    t.integer  "room_id",    null: false
   end
 
   add_index "microposts", ["room_id"], name: "index_microposts_on_room_id"
@@ -33,11 +33,11 @@ ActiveRecord::Schema.define(version: 20150629221915) do
   add_index "rooms", ["room_name"], name: "index_rooms_on_room_name", unique: true
 
   create_table "users", force: :cascade do |t|
-    t.string   "uuid",       limit: 36,                 null: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.boolean  "donno",                 default: false
-    t.boolean  "wow",                   default: false
+    t.string   "uuid",                       null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "donno",      default: false
+    t.boolean  "wow",        default: false
     t.integer  "room_id"
   end
 
