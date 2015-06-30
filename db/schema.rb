@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629072835) do
+ActiveRecord::Schema.define(version: 20150629221915) do
 
   create_table "microposts", force: :cascade do |t|
     t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "user_id",    null: false
-    t.integer  "room_id",    null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "uuid",       limit: 36, null: false
+    t.integer  "room_id",               null: false
   end
 
   add_index "microposts", ["room_id"], name: "index_microposts_on_room_id"
-  add_index "microposts", ["user_id"], name: "index_microposts_on_user_id"
+  add_index "microposts", ["uuid"], name: "index_microposts_on_uuid"
 
   create_table "rooms", force: :cascade do |t|
     t.string   "room_name",  null: false
@@ -33,11 +33,11 @@ ActiveRecord::Schema.define(version: 20150629072835) do
   add_index "rooms", ["room_name"], name: "index_rooms_on_room_name", unique: true
 
   create_table "users", force: :cascade do |t|
-    t.integer  "uuid",                       null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "donno",      default: false
-    t.boolean  "wow",        default: false
+    t.string   "uuid",       limit: 36,                 null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "donno",                 default: false
+    t.boolean  "wow",                   default: false
     t.integer  "room_id"
   end
 

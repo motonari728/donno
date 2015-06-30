@@ -1,4 +1,5 @@
 <%= form_for(@micropost) do |f| %>
+
   <% if @micropost.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@micropost.errors.count, "error") %> prohibited this micropost from being saved:</h2>
@@ -11,9 +12,17 @@
     </div>
   <% end %>
 
+
   <div class="field">
     <%= f.label :content %><br>
-    <%= f.text_area :content %>
+    <%= f.text_area :content %><br>
+
+    <%= f.label :uuid %><br>
+    <%= f.text_area :uuid %><br>
+
+    <%= f.label :room_id %><br>
+    <%= f.text_area :room_id %><br>
+
   </div>
   <div class="actions">
     <%= f.submit %>
