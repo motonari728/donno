@@ -5,6 +5,6 @@ class AddIdToUsers < ActiveRecord::Migration
     add_column :users, :room_id, :integer
     add_index :users, :uuid, unique: true
     add_index :users, :room_id
-    change_column :users, :uuid, :integer, :null=>false
+    change_column :users, :uuid, :string, :null=>false
   end
 end
