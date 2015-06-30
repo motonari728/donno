@@ -49,7 +49,7 @@ group :development, :test do
 	  gem 'sqlite3'
 	end
 	group :production do
-	  gem 'sqlite3' #postgress
+	  gem 'pg' #postgress
 	  gem 'rails_12factor' #herokuでrails4を動かすのに必要
 	end
 
