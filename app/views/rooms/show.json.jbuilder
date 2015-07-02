@@ -1,1 +1,2 @@
-json.extract! @room, :id, :room_name, :created_at, :updated_at
+json.microposts @microposts,  :id, :content, :uuid, :created_at
+json.donno @donno

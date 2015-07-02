@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
 	# GET /rooms
 	# GET /rooms.json
 	def index
-		@rooms = Room.all
+		@rooms = Room.order(updated_at: :desc)
 		respond_to do |format|
 			format.html
 			format.json { render json: @rooms }
@@ -14,10 +14,32 @@ class RoomsController < ApplicationController
 	# GET /rooms/1
 	# GET /rooms/1.json
 	def show
-		@microposts = Room.find(params[:id]).microposts
-		respond_to do |format|
-			format.html
-			format.json { render json: @microposts }
+		@room = Room.find(params[:id])
+		@uuid = params[:uuid]
+		@user = User.find_by(uuid: @uuid)
+		if @room.id == @user.room_id
+			@user.touch
+		else
+			@user.room_id=@room.id
+		end
+		@last = params[:last].to_i
+		@microposts = @room.microposts.offset(@last)
+		if @room.updated_at < 1.second.ago
+			@users = @room.users.where(updated_at: (30.second.ago)..(Time.now))
+			@donno = 0
+			@users.each do |user|
+				if user.donno == true
+					@donno += 1
+				end
+			end
+			@donno = @donno.to_f/@users.count
+			if @room.donno == @donno
+				@room.touch
+			else
+				@room.donno = @donno
+			end
+		else
+			@donno = Room.find(params[:id]).donno
 		end
 	end
 
@@ -33,12 +55,12 @@ class RoomsController < ApplicationController
 	# POST /rooms
 	# POST /rooms.json
 	def create
-		@room = Room.new(room_params)
+		@room = Room.new(room_params) 
 
 		respond_to do |format|
 			if @room.save
 				format.html { redirect_to @room, notice: 'Room was successfully created.' }
-				format.json { render :show, status: :created, location: @room }
+				format.json { render json: @room, status: :created}
 			else
 				format.html { render :new }
 				format.json { render json: @room.errors, status: :unprocessable_entity }

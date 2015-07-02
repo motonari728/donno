@@ -30,6 +30,6 @@ def make_microposts
 		room_id = 1
 		users.each do |user|
 			content = Faker::Lorem.sentence(5)
-			user.microposts.create!( content: content, room_id: room_id )
+			Micropost.create!( content: content, room_id: room_id, uuid: user.uuid )
 		end
 end

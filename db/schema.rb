@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629221915) do
+ActiveRecord::Schema.define(version: 20150701142315) do
 
   create_table "microposts", force: :cascade do |t|
     t.text     "content"
@@ -25,9 +25,11 @@ ActiveRecord::Schema.define(version: 20150629221915) do
   add_index "microposts", ["uuid"], name: "index_microposts_on_uuid"
 
   create_table "rooms", force: :cascade do |t|
-    t.string   "room_name",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "room_name",                null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.float    "donno",      default: 0.0
+    t.float    "wow",        default: 0.0
   end
 
   add_index "rooms", ["room_name"], name: "index_rooms_on_room_name", unique: true

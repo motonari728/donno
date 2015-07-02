@@ -24,8 +24,9 @@ class MicropostsController < ApplicationController
 	# POST /microposts
 	# POST /microposts.json
 	def create
+		#@user = User.find_by(uuid: params[micropost][uuid])
+		#@micropost = @user.microposts.build(micropost)
 		@micropost = Micropost.new(micropost_params)
-
 		respond_to do |format|
 			if @micropost.save
 				format.html { redirect_to @micropost, notice: 'Micropost was successfully created.' }
