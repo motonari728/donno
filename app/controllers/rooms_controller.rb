@@ -33,11 +33,17 @@ class RoomsController < ApplicationController
 				end
 			end
 			@donno = @donno.to_f/@users.count
-			if @room.donno == @donno
-				@room.touch
-			else
-				@room.donno = @donno
+
+			@users = @room.users.where(updated_at: (5.second.ago)..(Time.now))
+			@wow = 0
+			@users.each do |user|
+				@wow += user.wow
 			end
+			@wow = @wow.to_f/@users.count
+
+			@room.donno = @donno
+			@room.wow = @wow
+			@room.touch
 		else
 			@donno = Room.find(params[:id]).donno
 		end
