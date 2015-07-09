@@ -34,7 +34,6 @@ module Donno
     config.action_dispatch.default_headers = {
     #'Access-Control-Allow-Credentials' => 'true',
     'Access-Control-Allow-Origin' => '*',
-    'Access-Control-Request-Method' => '*',
     'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS',
     'Access-Control-Allow-Headers' => '*',
     'Access-Control-Max-Age' => '1728000'
