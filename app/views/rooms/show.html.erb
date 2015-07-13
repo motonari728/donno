@@ -115,7 +115,8 @@ $("#micropost_ul").ready(function(){
 		//$("html, body").animate({scrollTop:targetY});
 
 		$("#graphDonnoBar").css({"height" : parseFloat(data.donno)*100+"%"});
-		$("#graphWowBar").css({"height" : parseFloat(data.wow)*100+"%"});
+		var wow_rate = parseFloat(data.wow)>1 ? 100 : parseFloat(data.wow)*100
+		$("#graphWowBar").css({"height" : wow_rate+"%"});
 		console.log(parseFloat(data.donno)*100+"%");
 		console.log(parseFloat(data.wow)*100+"%");
 		setTimeout("loadRoom()", 3000);
