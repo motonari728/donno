@@ -1,8 +1,76 @@
 class StaticPagesController < ApplicationController
+
+
+	@json='{
+  "version": "1.1",
+  "name": "Donno",
+  "launch_path": "/rooms/10.html",
+  "description": "Boilerplate Firefox OS app with example use cases to get started",
+  "icons": {
+
+
+    "16": "/Firefox-OS-Boilerplate-App/images/logo16.png",
+    "32": "/Firefox-OS-Boilerplate-App/images/logo32.png",
+    "48": "/Firefox-OS-Boilerplate-App/images/logo48.png",
+    "60": "/Firefox-OS-Boilerplate-App/images/logo60.png",
+    "64": "/Firefox-OS-Boilerplate-App/images/logo64.png",
+    "90": "/Firefox-OS-Boilerplate-App/images/logo90.png",
+    "120": "/Firefox-OS-Boilerplate-App/images/logo120.png",
+    "128": "/Firefox-OS-Boilerplate-App/images/logo128.png"
+  },
+  "developer": {
+    "name": "Robert Nyman",
+    "url": "http://robertnyman.com"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "ja",
+  "locales": {
+    "ja": {
+      "name": "Donno",
+      "description": "あなたのわからないを届ける"
+    }
+  }
+}'
+
 	def home
 	end
 
 	def manifest
+		response.headers['Content-Type'] = 'application/x-web-app-manifest+json'
+		render :text => '{
+  "version": "1.1",
+  "name": "Donno",
+  "launch_path": "/rooms/10.html",
+  "description": "Boilerplate Firefox OS app with example use cases to get started",
+  "icons": {
+
+
+    "16": "/Firefox-OS-Boilerplate-App/images/logo16.png",
+    "32": "/Firefox-OS-Boilerplate-App/images/logo32.png",
+    "48": "/Firefox-OS-Boilerplate-App/images/logo48.png",
+    "60": "/Firefox-OS-Boilerplate-App/images/logo60.png",
+    "64": "/Firefox-OS-Boilerplate-App/images/logo64.png",
+    "90": "/Firefox-OS-Boilerplate-App/images/logo90.png",
+    "120": "/Firefox-OS-Boilerplate-App/images/logo120.png",
+    "128": "/Firefox-OS-Boilerplate-App/images/logo128.png"
+  },
+  "developer": {
+    "name": "Robert Nyman",
+    "url": "http://robertnyman.com"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "ja",
+  "locales": {
+    "ja": {
+      "name": "Donno",
+      "description": "あなたのわからないを届ける"
+    }
+  }
+}'
 	end
 end
 

@@ -37,6 +37,7 @@ module Donno
     'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS',
     'Access-Control-Allow-Headers' => '*',
     'Access-Control-Max-Age' => '1728000'
+    #'Content-Type' = 'application/x-web-app-manifest+json'
     }
   end
 end
