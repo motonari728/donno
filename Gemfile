@@ -8,6 +8,8 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
+
+#↓削除
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -46,6 +48,9 @@ end
 
   # 追加
 	gem 'faker', '1.1.2'
+	gem 'bootstrap-sass', '~> 3.3.5'
+	gem 'will_paginate', '3.0.4'
+	gem 'bootstrap-will_paginate', '0.0.9'
 
 	group :development, :test do
 	  gem 'sqlite3'

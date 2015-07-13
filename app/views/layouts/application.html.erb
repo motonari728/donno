@@ -7,8 +7,24 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<button id="install">インストール</button>
 
 <%= yield %>
 
+<script>
+$("#install").click(function(){
+	//var url = location.href;
+	//alert("clicked");
+	var manifestUrl = "http://" + location.host + '/manifest.webapp';
+	console.log(manifestUrl);
+	var install = navigator.mozApps.install(manifestUrl);
+	install.addEventListener('success', function() {
+	    alert('Installed successfully.');
+	}, false);
+	install.addEventListener('error', function() {
+	    alert('Install failed. ' + install.error.name);
+	}, false);
+});
+</script>
 </body>
 </html>

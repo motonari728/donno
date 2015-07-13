@@ -14,50 +14,55 @@ class RoomsController < ApplicationController
 	# GET /rooms/1
 	# GET /rooms/1.json
 	def show
-		@uuid = params[:uuid]
-		@user = User.find_by(uuid: @uuid)
-		@donno = params[:donno]
-		@wow = params[:wow] ? params[:wow] : 0
-		logger.debug "テスト123020#{@donno}"
-		if @donno == "true"
-			@user.donno = true
-		else
-			@user.donno = false
-		end
-		@user.wow = @wow
-		if @room.id != @user.room_id
-			@user.room_id=@room.id
-		end
-		@user.touch
-		@user.save
+		respond_to do |format|
+			format.html 
+			format.json do
+				@uuid = params[:uuid]
+				@user = User.find_by(uuid: @uuid)
+				@donno = params[:donno]
+				#@wow = params[:wow]
+				logger.debug "テスト123020#{@donno}"
+				if @donno == "true"
+					@user.donno = true
+				else
+					@user.donno = false
+				end
+				#@user.wow = @wow
+				if @room.id != @user.room_id
+					@user.room_id=@room.id
+				end
+				@user.touch
+				@user.save
 
 
-		@last = params[:last].to_i
-		@microposts = @room.microposts.offset(@last)
-		if @room.updated_at < 1.second.ago
-			@users = @room.users.where(updated_at: (30.years.ago)..(Time.now))
-			@donno_rate = 0
-			@users.each do |user|
-				if user.donno == true
-					@donno_rate += 1
+				@last = params[:last].to_i
+				@microposts = @room.microposts.offset(@last)
+				@users = @room.users.where(updated_at: (15.seconds.ago)..(Time.now))
+				if @room.updated_at < 2.second.ago
+					@donno_rate = 0
+					@users.each do |user|
+						if user.donno == true
+							@donno_rate += 1
+						end
+					end
+					@donno_rate = @donno_rate.to_f/@users.count
+
+					@wow_users = @room.users.where(wow_updated: (10.seconds.ago)..(Time.now))
+					@wow_rate = 0
+					@wow_users.each do |user|
+						@wow_rate += user.wow
+					end
+					@wow_rate = @wow_users.count != 0 ? @wow_rate.to_f/@wow_users.count : 0
+
+					@room.donno = @donno_rate
+					@room.wow = @wow_rate 
+					@room.touch
+					@room.save
+				else
+					@donno_rate = Room.find(params[:id]).donno
+					@wow_rate = Room.find(params[:id]).wow
 				end
 			end
-			@donno_rate = @donno_rate.to_f/@users.count
-
-			@users = @room.users.where(updated_at: (5.years.ago)..(Time.now))
-			@wow_rate = 0
-			@users.each do |user|
-				@wow_rate += user.wow
-			end
-			@wow_rate = @wow_rate.to_f/@users.count
-
-			@room.donno = @donno_rate
-			@room.wow = @wow_rate
-			@room.touch
-			@room.save
-		else
-			@donno = Room.find(params[:id]).donno
-			@wow = Room.find(params[:id]).wow
 		end
 	end
 

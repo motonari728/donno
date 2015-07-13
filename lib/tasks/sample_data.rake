@@ -18,6 +18,9 @@ end
 
 
 def make_users
+		uuid = "XXX"
+		room_id = 1
+		User.create!( uuid: uuid, room_id: room_id )
 	100.times do |n|
 		uuid = SecureRandom.uuid # => "96b0a57c-d9ae-453f-b56f-3b154eb10cda"
 		room_id = 1
