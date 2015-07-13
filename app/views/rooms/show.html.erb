@@ -96,11 +96,11 @@ $("#micropost_ul").ready(function(){
 	$.ajax({
 		//url:"http://localhost:3000/rooms/1.json?uuid=6fc32589-bd1f-4595-ab6f-981fa861a10c&last=98&donno=true",
 
-		url:"http://" + location.host +"/rooms/"+ <%=@room.id%> + ".json?uuid=XXX&donno="+donno+"&last="+last,
+		url:location.protocol+"//" + location.host +"/rooms/"+ <%=@room.id%> + ".json?uuid=XXX&donno="+donno+"&last="+last,
 		type:'get',
 		cache: false,
 		dataType: 'json'
-	}).done(function(data) {
+	}).always(function(data) {
 		//console.log(data);
 		var microposts = data.microposts
 		last += microposts.length;
@@ -126,7 +126,7 @@ $("#micropost_ul").ready(function(){
 $("#micropost_submit").click(function(){
 	var content = $("#MpInput").val();
 	$.ajax({
-		url:"http://" + location.host +"/microposts.json",
+		url: location.protocol+"//" + location.host +"/microposts.json",
 		type:'post',
 		  headers: {
 		    'X-PINGOTHER': 'pingpong'
@@ -148,7 +148,7 @@ $("#micropost_submit").click(function(){
 $("#wow").click(function(){
 	//var content = $("#MpInput").val();
 	$.ajax({
-		url:"http://" + location.host +"/users/XXX.json",//uuid
+		url:location.protocol+"//" + location.host +"/users/XXX.json",//uuid
 		type:'patch',
 		cache: false,
 		dataType: 'json',
