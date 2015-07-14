@@ -1,13 +1,6 @@
 
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Room name:</strong>
-  <%= @room.room_name %>
-</p>
-
-<!--<%= link_to 'Edit', edit_room_path(@room) %> |-->
-<%= link_to 'Back', rooms_path %>
+<%= link_to 'ルーム一覧へ', rooms_path %>
 
 	<!--// Header //-->
 	<div id="headerContainer" class="container">
@@ -16,7 +9,7 @@
 			<h1>DONNO</h1>
 		</div>
 		<div class="col-sm-9">
-			<!-- <h2>ルーム名</h2> -->
+			<h2>ルーム名：  <%= @room.room_name %></h2>
 		</div>
 	</div>
 	</div>
@@ -71,6 +64,7 @@ var last = 0;
 var get_flag = false;
 var donno = false;
 var uuid;
+var follow = false;
 	/*
 	console.log("view");
 	$("#install").click(function(){
@@ -137,7 +131,21 @@ $("#micropost_ul").ready(function(){
 	}).always(function(data) {
 		console.log(data);
 		var microposts = data.microposts
-		last += microposts.length;
+		if(microposts.length!=0){
+		last = microposts[microposts.length-1].id;
+		}
+		/*
+		var target = $("#microPostDiv");
+		if(target.scrollHeight - target.scrollTop - 50 <= target.clientHeight){
+			var follow = true;
+		}else{
+			var follow= false;
+		}
+		console.log(follow);
+		console.log(target.scrollHeight - target.scrollTop - 50);
+		console.log(target.clientHeight);
+		console.log(follow);
+		*/
 		if(microposts.length >= 1){
 			for(i=0; i<microposts.length; i++){
 				$("#micropost_ul").append("<li>"+microposts[i].content+"</li>");
@@ -146,11 +154,12 @@ $("#micropost_ul").ready(function(){
 		console.log(data.users_count);
 		console.log(data.users);
 		$("#users_count").text("接続人数："+data.users_count);
-		var targetY = $("#micropost_ul")[0].scrollHeight;
-		console.log(targetY)
-		$("#micropost_ul").scrollTop(0);
-		//$("html, body").animate({scrollTop:targetY});
-
+		if(follow == true){
+			var targetY = $("#microPostDiv")[0].scrollHeight;
+			console.log(targetY)
+			$("#microPostDiv").scrollTop(targetY);
+			//$("html, body").animate({scrollTop:targetY});
+		}
 		$("#graphDonnoBar").css({"height" : parseFloat(data.donno)*100+"%"});
 		var wow_rate = parseFloat(data.wow)>1 ? 100 : parseFloat(data.wow)*100
 		$("#graphWowBar").css({"height" : wow_rate+"%"});

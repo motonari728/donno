@@ -35,7 +35,9 @@ class RoomsController < ApplicationController
 				@user.save
 
 				@last = params[:last].to_i
-				@microposts = @room.microposts.offset(@last)
+				conditions = @room.microposts.arel_table
+				@microposts = @room.microposts.where(conditions[:id].gt(@last))
+				#@microposts = @room.microposts.offset(@last)
 				@users = @room.users.where(updated_at: (15.seconds.ago)..(Time.now))
 				if @room.updated_at < 2.second.ago
 					@donno_rate = 0
