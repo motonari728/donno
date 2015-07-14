@@ -48,10 +48,11 @@ class RoomsController < ApplicationController
 
 					@wow_users = @room.users.where(wow_updated: (10.seconds.ago)..(Time.now))
 					@wow_rate = 0
+					@wow = 0
 					@wow_users.each do |user|
-						@wow_rate += user.wow
+						@wow += user.wow
 					end
-					@wow_rate = @wow_users.count != 0 ? @wow_rate.to_f/@wow_users.count : 0
+					@wow_rate = @wow_users.count != 0 ? @wow.to_f/@users.count : 0
 
 					@room.donno = @donno_rate
 					@room.wow = @wow_rate 
