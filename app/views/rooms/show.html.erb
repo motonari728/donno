@@ -1,5 +1,4 @@
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -14,10 +13,10 @@
 	<div id="headerContainer" class="container">
 	<div class="row">
 		<div class="col-sm-3">
-			<h1>DONNOのロゴ</h1>
+			<h1>DONNO</h1>
 		</div>
 		<div class="col-sm-9">
-			<h2>ルーム名</h2>
+			<!-- <h2>ルーム名</h2> -->
 		</div>
 	</div>
 	</div>
@@ -61,6 +60,9 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<div id="users_count">
+		接続人数:
 	</div>
 
 
@@ -143,6 +145,7 @@ $("#micropost_ul").ready(function(){
 		}
 		console.log(data.users_count);
 		console.log(data.users);
+		$("#users_count").text("接続人数："+data.users_count);
 		var targetY = $("#micropost_ul")[0].scrollHeight;
 		console.log(targetY)
 		$("#micropost_ul").scrollTop(0);
@@ -189,7 +192,7 @@ $("#wow").click(function(){
 		cache: false,
 		dataType: 'json',
 		data:{
-			"user[wow]": "4",
+			"user[wow]": "1",
 			//"user[uuid]":"XXX",
 			"user[donno]":"true"
 		}
