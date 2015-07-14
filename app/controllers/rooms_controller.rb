@@ -34,7 +34,6 @@ class RoomsController < ApplicationController
 				@user.touch
 				@user.save
 
-
 				@last = params[:last].to_i
 				@microposts = @room.microposts.offset(@last)
 				@users = @room.users.where(updated_at: (15.seconds.ago)..(Time.now))

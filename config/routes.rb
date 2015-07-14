@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
   match '/manifest.webapp', to: 'static_pages#manifest',  via: 'get', defaults: { format: "json" }
-  match '/microposts', to: 'microposts#options', via: 'options'
+  match '/manifest2.webapp', to: 'static_pages#manifest',  via: 'get', defaults: { format: "json" }
+  #match '/microposts', to: 'microposts#options', via: 'options'
+  match '/install', to: 'static_pages#install', via: 'get', defaults: { format: "html" }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

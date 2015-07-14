@@ -1,3 +1,5 @@
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -61,12 +63,12 @@
 		</div>
 	</div>
 
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+
 <script>
 var last = 0;
 var get_flag = false;
 var donno = false;
+var uuid;
 	/*
 	console.log("view");
 	$("#install").click(function(){
@@ -74,14 +76,43 @@ var donno = false;
 	});*/
 
 $(function(){
-	
-	if(get_flag == false){
-		loadRoom();
-		get_flag = true;
+	/*if (window.navigator.cookieEnabled) {
+		alert("クッキーは利用できます。");	// クッキーの受け入れが有効時の処理
+	}
+	else {
+		alert("クッキーは利用できません。");	// クッキーの受け入れが無効時の処理
+	}*/
+	uuid = getCookie("uuid");		// count というクッキー名の値を取得
+	//console.log(uuid);
+	if (!uuid){
+		uuid = get_uuid();
+
+		$.ajax({
+		url: location.protocol+"//" + location.host +"/users.json",
+		type:'post',
+		cache: false,
+		dataType: 'json',
+		data:{
+			"user[uuid]": uuid
+		}
+		}).done(function(data) {
+			console.log(data);
+			setCookie("uuid", uuid, "", "/", 7);	// クッキー発行
+			loadRoom();
+		});
+
+
+	}else{
+		console.log(uuid);
+		if(get_flag == false){
+			get_flag = true;
+			loadRoom();
+		}
 	}
 });
 
 function loadRoom(){
+if(true){
 $("#micropost_ul").ready(function(){
 	//console.log("Hello World!");
 	//alert("テスト");
@@ -93,16 +124,16 @@ $("#micropost_ul").ready(function(){
 	}else{
 		donno = false;
 	}
-	console.log(donno);
+	//console.log(donno);
 	$.ajax({
 		//url:"http://localhost:3000/rooms/1.json?uuid=6fc32589-bd1f-4595-ab6f-981fa861a10c&last=98&donno=true",
 
-		url:location.protocol+"//" + location.host +"/rooms/"+ <%=@room.id%> + ".json?uuid=XXX&donno="+donno+"&last="+last,
+		url:location.protocol+"//" + location.host +"/rooms/"+ <%=@room.id%> + ".json?uuid="+uuid+"&donno="+donno+"&last="+last,
 		type:'get',
 		cache: false,
 		dataType: 'json'
 	}).always(function(data) {
-		//console.log(data);
+		console.log(data);
 		var microposts = data.microposts
 		last += microposts.length;
 		if(microposts.length >= 1){
@@ -110,6 +141,8 @@ $("#micropost_ul").ready(function(){
 				$("#micropost_ul").append("<li>"+microposts[i].content+"</li>");
 			}
 		}
+		console.log(data.users_count);
+		console.log(data.users);
 		var targetY = $("#micropost_ul")[0].scrollHeight;
 		console.log(targetY)
 		$("#micropost_ul").scrollTop(0);
@@ -124,6 +157,7 @@ $("#micropost_ul").ready(function(){
 	});
 });
 }
+}
 
 $("#micropost_submit").click(function(){
 	var content = $("#MpInput").val();
@@ -136,7 +170,7 @@ $("#micropost_submit").click(function(){
 		cache: false,
 		dataType: 'json',
 		data:{
-			"micropost[uuid]": "6fc32589-bd1f-4595-ab6f-981fa861a10c",
+			"micropost[uuid]": uuid,
 			"micropost[content]": content,
 			"micropost[room_id]": "<%=@room.id%>"
 		}
@@ -150,7 +184,7 @@ $("#micropost_submit").click(function(){
 $("#wow").click(function(){
 	//var content = $("#MpInput").val();
 	$.ajax({
-		url:location.protocol+"//" + location.host +"/users/XXX.json",//uuid
+		url:location.protocol+"//" + location.host +"/users/"+uuid+".json",//uuid
 		type:'patch',
 		cache: false,
 		dataType: 'json',
@@ -163,5 +197,55 @@ $("#wow").click(function(){
 		console.log(data);
 	});
 });
+
+function getCookie(name) {
+	if (!name || !document.cookie) return;
+
+	var cookies = document.cookie.split("; ");
+	for (var i = 0; i < cookies.length; i++) {
+		var str = cookies[i].split("=");
+		if (str[0] != name) continue;
+		return unescape(str[1]);
+	}
+	return;
+}
+
+function setCookie(name, value, domain, path, expires, secure) {
+	if (!name) return;
+
+	var str = name + "=" + escape(value);
+	if (domain) {
+		if (domain == 1) domain = location.hostname.replace(/^[^\.]*/, "");
+		str += "; domain=" + domain;
+	}
+	if (path) {
+		if (path == 1) path = location.pathname;
+		str += "; path=" + path;
+	}
+	if (expires) {
+		var nowtime = new Date().getTime();
+		expires = new Date(nowtime + (60 * 60 * 24 * 1000 * expires));
+		expires = expires.toGMTString();
+		str += "; expires=" + expires;
+	}
+	if (secure && location.protocol == "https:") {
+		str += "; secure";
+	}
+
+	document.cookie = str;
+}
+
+function get_uuid() {
+  var uuid = "", i, random;
+  for (i = 0; i < 32; i++) {
+    random = Math.random() * 16 | 0; //"|"はビット論理和
+
+    if (i == 8 || i == 12 || i == 16 || i == 20) {
+      uuid += "-"
+    }
+    uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
+  }
+  return uuid;
+}
 
 </script>

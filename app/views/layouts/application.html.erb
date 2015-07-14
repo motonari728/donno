@@ -15,7 +15,7 @@
 $("#install").click(function(){
 	//var url = location.href;
 	//alert("clicked");
-	var manifestUrl = "http://" + location.host + '/manifest.webapp';
+	var manifestUrl = "http://" + location.host + '/manifest2.webapp';
 	console.log(manifestUrl);
 	var install = navigator.mozApps.install(manifestUrl);
 	install.addEventListener('success', function() {
