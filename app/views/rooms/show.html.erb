@@ -195,6 +195,8 @@ $("#micropost_submit").click(function(){
 
 $("#wow").click(function(){
 	//var content = $("#MpInput").val();
+	$("#wow").addClass("disabled");
+	setTimeout('$("#wow").removeClass("disabled")', 10000);
 	$.ajax({
 		url:location.protocol+"//" + location.host +"/users/"+uuid+".json",//uuid
 		type:'patch',
