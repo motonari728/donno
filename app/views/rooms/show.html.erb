@@ -94,7 +94,7 @@ $(function(){
 		}).done(function(data) {
 			console.log(data);
 			setCookie("uuid", uuid, "", "/", 7);	// クッキー発行
-			loadRoom();
+			//loadRoom();
 		});
 
 
@@ -102,9 +102,10 @@ $(function(){
 		console.log(uuid);
 		if(get_flag == false){
 			get_flag = true;
-			loadRoom();
+			//loadRoom();
 		}
 	}
+	setInterval(loadRoom, 3000);
 });
 
 function loadRoom(){
@@ -165,7 +166,7 @@ $("#micropost_ul").ready(function(){
 		$("#graphWowBar").css({"height" : wow_rate+"%"});
 		console.log(parseFloat(data.donno)*100+"%");
 		console.log(parseFloat(data.wow)*100+"%");
-		setTimeout("loadRoom()", 3000);
+		//setTimeout("loadRoom()", 3000);
 	});
 });
 }
@@ -189,6 +190,7 @@ $("#micropost_submit").click(function(){
 	}).done(function(data) {
 		$("#MpInput").val("");
 		console.log(data);
+		loadRoom();
 	});
 });
 
@@ -209,6 +211,7 @@ $("#wow").click(function(){
 		}
 	}).done(function(data) {
 		console.log(data);
+		loadRoom();
 	});
 });
 
