@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :microposts
   resources :users
 
-  root 'static_pages#home'
+  root to:'rooms#index'
   match '/manifest.webapp', to: 'static_pages#manifest',  via: 'get', defaults: { format: "json" }
   match '/manifest2.webapp', to: 'static_pages#manifest',  via: 'get', defaults: { format: "json" }
   #match '/microposts', to: 'microposts#options', via: 'options'

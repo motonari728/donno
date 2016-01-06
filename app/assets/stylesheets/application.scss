@@ -53,3 +53,100 @@
 .toggle-on.btn-xs{padding-right:12px}
 .toggle-off.btn-xs{padding-left:12px}
 
+
+
+// Place all the styles related to the contributers controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+input[type="submit"] {
+  @extend .btn;
+  //@extend .btn-default;
+}
+
+table {
+  @extend .table;
+  @extend .table-hover;
+  @extend .table-striped;
+  @extend .table-bordered
+}
+
+.amcharts-data-set-selector-div {
+  @extend .hidden;
+}
+
+
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1000px; //例えば
+}
+
+/*
+.my-navbar-blue{
+  background-color: #428bca !important;
+}
+*/
+
+.show_env {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/*
+table {
+  border-collapse: collapse;
+}
+
+
+.td-test {
+  border: 1px solid black;
+}
+
+th {
+  border: 1px solid black;
+}
+*/
+
+//.mini_chart {
+//  //margin: 4px 4px 0px 4px;
+//  width: 100%;
+//  height: 100%;
+//}
+
+//jquery.sparkline修正用
+.jqstooltip {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.chart_responsible {
+  position: relative;
+  padding-bottom: 50%; /* the higher the bigger the ratio */ //大きさ調節
+  min-height: 300px;
+}
+#chartdiv {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+
+.form-control {
+  width: 50%;
+}
+
+.btn-primary {
+  @extend .btn-primary;
+  color: white !important;
+}
+
+
+hr {
+  border-top: solid 1px #C1BDBD;
+}
+

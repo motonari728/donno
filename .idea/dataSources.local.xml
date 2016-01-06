@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails donno: test" uuid="57b9de5e-e7ae-4ecc-8735-cb4e787fda4b" />
+    <data-source name="Rails donno: development" uuid="a4cf090e-8e1d-4ee7-a3c8-aaf40445acba">
+      <auth-required>false</auth-required>
+      <first-sync>true</first-sync>
+    </data-source>
+  </component>
+</project>
